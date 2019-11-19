@@ -1,0 +1,111 @@
+const int COLUMNMAX, ROWMAX;
+
+class grid
+{
+	int map[][];
+	player;
+};
+
+class player 
+{
+public:
+	bool hasNotFired;
+
+	position Playerposition;
+	void moveLeft();
+	void moveRight();
+
+
+};
+class ball
+{
+public:
+	int ballSpeed;
+	position ballPosition;
+
+	void stuckToPlayer();
+
+	void fireBall();
+	void makesContact();
+};
+class position
+{
+	int column, row;
+};
+
+void input(char a)
+{
+
+	if (a == 'a')
+	{
+		moveLeft();
+	}
+	if (a == 'd')
+	{
+		moveRight();
+	}
+	if (a == ' ')
+	{
+		fireBall();
+		hasNotFired = false;
+	}
+}
+void ball::stuckToPlayer()
+{
+	if (player.hasNotFired == true)
+	{
+		ballPosition.column = player.Playerposition.column;
+	}
+}
+
+void ball::makesContact()
+{
+	if (ballPosition.row == .row && ballPosition.column == .column)
+	{
+		//brick contact. damage brick and reverse ball movement
+		//brick hit audio
+
+	}
+	if (ballPosition.row == .row && ballPosition.column == .column)
+	{
+		//player contact
+		//reverse ball course and speed up ball
+		ballSpeed +1
+		//ball audio contact with player
+	}
+	if (ballPosition.column == 0 || ballPosition.column == COLUMNMAX)
+	{
+		//reverse ball position
+		//ball contact with player
+	}
+
+	
+
+
+
+}
+ void player::moveLeft()
+{
+
+	playerposition.column - 1;
+}
+
+void player::moveRight()
+{
+	playerposition.column + 1;
+
+}
+
+void ball::fireBall()
+{
+	ballPosition.row + 1;
+}
+
+void ball::ballMovement
+{
+	ballPosition = ballSpeed;
+}
+
+
+
+
