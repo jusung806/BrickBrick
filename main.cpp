@@ -1,47 +1,59 @@
 #include <iostream>
-#include <String>
+#include <SDL.h>
+//#include <SDL_mixer.h>
+#include <string>
 
 using namespace std;
 
-//this needs to be changed to the sdl version instead of windows version
+class Audio {
+public:
+	Audio();
+	void load(const char* filename);
+	void play();
+private:
+	SDL_AudioSpec wavSpec;
+	Uint32 wavLength;
+	Uint8* wavBuffer;
+	SDL_AudioDeviceID deviceID;
+};
 
-int LoadAudio(const char * filename)
-{
-	int handle = 1; //change later
-
-	//has to load the 5 audio files, -sounds when brick, if the player has died, bounced from the player and wall same sound, destroyed brick, the ball being shot.
-		
-	// this would be a reference to a memory handle or index, loads wav files
-
-//C:\Users\Norco College\Desktop\audio file  | replace the *wav. with the address PlaySound("*.wav", GetModuleHandle(NULL), SND_FILENAME); this was for windows audio version replace this with the sdl version
-
-	return handle; // test?
+Audio::Audio() {
+	SDL_CloseAudioDevice(deviceID);
+	SDL_FreeWAV(wavBuffer);
 }
 
-	
-
-
-void PlayAudio(int handle) 
+void Audio::load(const char* filename)
 {
-	//this will play the loaded audio file when called upon
-	cout << "this should play some audio";
+	SDL_LoadWAV(filename, &wavSpec, &wavBuffer, &wavLength);
+	deviceID = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
+}
+
+void Audio::play()
+{
+	SDL_QueueAudio(deviceID, wavBuffer, wavLength);
+	SDL_PauseAudioDevice(deviceID, 0);
 }
 
 // test program 
 
 class GameState {
 public:
-	float player_x, player_y;
+	float player_x, player_y; //need to add more here
 };
 
 
 int main()
 {
 	GameState gamestate;
-	
+
 	bool isDead = false, gameCompletion = false;
 	int lives = 3;
 	// double lastTime = getCurrentTime();
+
+	Audio effects;
+	effects.load("C:\\Users\\OWNER\\Desktop\\SoundEffectsWav"); //this needs to alway pass in the file path
+	effects.play();
+	
 	do
 	{
 		//double current = getCurrentTime(); these two functions will keep the game from running to slowly or to quickly between frames of the ball and player moving
@@ -51,12 +63,14 @@ int main()
 		// render(); this should update the system to the screen the ball moving across the screen the player see's this
 		//lastTime = current;
 
-		update(&gamestate);
+		// update(&gamestate); 
 
-		draw(&gamestate);
+		// draw(&gamestate);
 
 	} while (isDead == false || gameCompletion == false);
 
 	system("PAUSE");
+
+	return 0;
 
 }
