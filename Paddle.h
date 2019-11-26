@@ -1,10 +1,9 @@
-
+//
+// Created by jusung on 11/25/19.
+//
 
 #ifndef BRICKBRICKBALLV2_PADDLE_H
 #define BRICKBRICKBALLV2_PADDLE_H
-
-#include "Entity.h"
-#include <math.h>
 
 class Paddle: public Entity {
 public:

@@ -1,10 +1,13 @@
-
+//
+// Created by jusung on 11/25/19.
+//
 
 #ifndef BRICKBRICKBALLV2_BALL_H
 #define BRICKBRICKBALLV2_BALL_H
 
 
 #include "Entity.h"
+
 #include <math.h>
 
 // Define a ball speed in pixels per second

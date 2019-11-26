@@ -1,4 +1,6 @@
-
+//
+// Created by jusung on 11/25/19.
+//
 
 #include <math.h>
 #include "Paddle.h"
