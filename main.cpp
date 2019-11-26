@@ -1,7 +1,11 @@
 #include <iostream>
+
+#define SDL_MAIN_HANDLED
+
 #include <SDL.h>
 //#include <SDL_mixer.h>
 #include <string>
+
 
 using namespace std;
 
@@ -24,8 +28,14 @@ Audio::Audio() {
 
 void Audio::load(const char* filename)
 {
-	SDL_LoadWAV(filename, &wavSpec, &wavBuffer, &wavLength);
-	deviceID = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
+	if (SDL_LoadWAV(filename, &wavSpec, &wavBuffer, &wavLength) == NULL)
+	{
+		return;
+	}
+		SDL_LoadWAV(filename, &wavSpec, &wavBuffer, &wavLength);
+		deviceID = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
+
+	
 }
 
 void Audio::play()
@@ -44,6 +54,8 @@ public:
 
 int main()
 {
+
+
 	GameState gamestate;
 
 	bool isDead = false, gameCompletion = false;
@@ -51,9 +63,9 @@ int main()
 	// double lastTime = getCurrentTime();
 
 	Audio effects;
-	effects.load("C:\\Users\\OWNER\\Desktop\\SoundEffectsWav"); //this needs to alway pass in the file path
+	effects.load("doh.wav"); //this needs to alway pass in the file path
 	effects.play();
-	
+
 	do
 	{
 		//double current = getCurrentTime(); these two functions will keep the game from running to slowly or to quickly between frames of the ball and player moving
