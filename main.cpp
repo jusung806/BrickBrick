@@ -32,10 +32,10 @@ void Audio::load(const char* filename)
 	{
 		return;
 	}
-		SDL_LoadWAV(filename, &wavSpec, &wavBuffer, &wavLength);
-		deviceID = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
+	SDL_LoadWAV(filename, &wavSpec, &wavBuffer, &wavLength);
+	deviceID = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
 
-	
+
 }
 
 void Audio::play()
@@ -48,7 +48,9 @@ void Audio::play()
 
 class GameState {
 public:
-	float player_x, player_y; //need to add more here
+	float player_x; //need to add more here
+	// wouldn't this be connected to paddle, like this?
+	// Paddle player1;
 };
 
 class Game {
@@ -65,7 +67,7 @@ public:
 	void input();
 
 	bool running() { return isRunning; }
-private: 
+private:
 	int counter; //this is just to see it updating on console;
 	bool isRunning;
 	SDL_Window *window;
@@ -117,13 +119,28 @@ void Game::handleEvents()
 {
 	SDL_Event event;
 	SDL_PollEvent(&event);
-	switch (event.type) {
-	case SDL_QUIT: 
-			isRunning = false;
-			break;
+	switch (event.type) 
+	{
+	case SDL_QUIT:
+		isRunning = false;
+		break;
+
+  /*
+    case SDL_SCANCODE_RIGHT:
+		rect.x += 1; this should be changed to gamestate.player1.dirx+=1;
+		break;
+	case SDL_SCANCODE_LEFT:
+		rect.x -= 1; this should be changed to gamestate.player1.dirx-=1;
+		break;
+
+	case SDL_SCANCODE_KP_SPACE
+			this should be gamestate.player1.fireball = true;
+			break;`
+		*/
+	
 
 	default:
-			break;
+		break;
 	}
 }
 
@@ -146,7 +163,8 @@ void Game::clean()
 	cout << "Game Cleaned" << endl;
 }
 
-void Game::input() {
+void Game::input() 
+{
 
 }
 
@@ -179,21 +197,25 @@ int main()
 			frameCount = 0;
 		}
 
-			//game->input();
-			game->handleEvents(); // i think this is input
-			game->update();
-			game->render();
+		//game->input();
+		game->handleEvents(); // i think this is input
+		
+	
+		game->update();
+		
+		
+		game->render();
 
-			//double current = getCurrentTime(); these two functions will keep the game from running to slowly or to quickly between frames of the ball and player moving
-			//double elapsed = current - lastTime;
-			// processInput(); this function will process user input calls on sub system user input functions -user input(player movement, ball being shot)
-			// update(elasped); this funtion should update the input to the system 
-			// render(); this should update the system to the screen the ball moving across the screen the player see's this
-			//lastTime = current;
+		//double current = getCurrentTime(); these two functions will keep the game from running to slowly or to quickly between frames of the ball and player moving
+		//double elapsed = current - lastTime;
+		// processInput(); this function will process user input calls on sub system user input functions -user input(player movement, ball being shot)
+		// update(elasped); this funtion should update the input to the system 
+		// render(); this should update the system to the screen the ball moving across the screen the player see's this
+		//lastTime = current;
 
-			// update(&gamestate); 
+		// update(&gamestate); 
 
-			// draw(&gamestate);
+		// draw(&gamestate);
 
 	}
 
