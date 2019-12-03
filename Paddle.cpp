@@ -1,38 +1,34 @@
-//
-// Created by jusung on 11/25/19.
-//
-
 #include <math.h>
 #include "Paddle.h"
 
-Paddle::Paddle(SDL_Renderer* renderer): Entity(renderer) {
-    SDL_Surface* surface = IMG_Load("paddle.png");
-    texture = SDL_CreateTextureFromSurface(renderer, surface);
-    SDL_FreeSurface(surface);
+Paddle::Paddle(SDL_Renderer* renderer) : Entity(renderer) {
+	SDL_Surface* surface = IMG_Load("paddle.png");
+	texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
 
-    width = 128;
-    height = 32;
-
-    y = 560;
+	width = 128;
+	height = 32;
+	x = 0;
+	y = 560;
 }
 
-Paddle::~Paddle() {
-    // Clean resources
-    SDL_DestroyTexture(texture);
+Paddle::~Paddle()
+{
+	// Clean resources
+	SDL_DestroyTexture(texture);
 }
 
 
-void Paddle::Update(float delta) {
-
+void Paddle::Update(float delta)
+{
+	x += dirx * delta;
 }
 
 void Paddle::Render(float delta) {
-    SDL_Rect rect;
-    rect.x = (int)(x + 0.5f);
-    rect.y = (int)(y + 0.5f);
-    rect.w = width;
-    rect.h = height;
-    SDL_RenderCopy(renderer, texture, 0, &rect);
+	SDL_Rect rect;
+	rect.x = (int)(x + 0.5f);
+	rect.y = (int)(y + 0.5f);
+	rect.w = width;
+	rect.h = height;
+	SDL_RenderCopy(renderer, texture, 0, &rect);
 }
-
-#include "Constants.h"
