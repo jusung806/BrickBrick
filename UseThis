@@ -75,6 +75,7 @@ void EventHandler() {
 	}
 
 }
+
 void gameOver() {
 	SDL_Surface *go = SDL_LoadBMP("gover.bmp");
 	SDL_Texture *gotexture = SDL_CreateTextureFromSurface(renderer, go);
@@ -99,7 +100,7 @@ void ball_collision() {
 	if (ballx<bkwmin || ballx>bkw - 30) {
 		ballvelx = -ballvelx;
 	}
-	if (bally < bkhmin)
+	if (bally < bkhmin || bally>bkh-30)
 	{
 		ballvely = -ballvely;
 	}
